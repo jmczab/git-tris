@@ -1,0 +1,36 @@
+#!/bin/bash
+#default to a directory called source in your home
+HOMESRC=~/source
+DSTLINK=~/.local/bin
+
+if [ ! -d "${HOMESRC}" ];then
+  mkdir "${HOMESRC}"
+  echo "Created a source directory in home for you. Change the variable at the top of the script if you want it located elsewhere"
+fi
+
+if [ "${HOMESRC}/lutris/.git/config" ];then
+  cd "${HOMESRC}/lutris"
+  git pull
+else
+  echo "Lutris not found - performing first clone"
+  cd "${HOMESRC}"
+  git clone https://github.com/lutris/lutris.git
+fi
+
+# link lutris binary to something in our path
+ln -s "${HOMESRC}/lutris/bin/lutris" "${DSTLINK}/lutris"
+
+#Never got this to work as a user, so I do it systemwide via sudo. Feel free to correct
+if [ "${HOMESRC}/ULWGL-launcher/.git/config" ];then
+  cd "${HOMESRC}/ULWGL-launcher"
+  git pull --recurse-submodules
+  sudo make clean
+  sudo rm -rf /home/shodan/source/ULWGL-launcher/usr
+  sudo ./configure.sh --prefix=/usr
+  sudo make
+  sudo make install
+else
+  echo "ULWGL not found - performing first clone"
+  cd "${HOMESRC}"
+  git clone https://github.com/Open-Wine-Components/ULWGL-launcher.git
+fi
