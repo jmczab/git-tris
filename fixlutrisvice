@@ -73,14 +73,22 @@ fi
 mkdir -f $LUTRISVICE/lutrisOldViceFiles
 mv -f $LUTRISVICE/* $LUTRISVICE/lutrisOldViceFiles
 
+# new vice doesn't compile old x64, only x64sc, so duplicate that
+if [ "$LUTRISVICE/x64" ];then
+  ln -s $SOURCEDIR/src/x64sc $LUTRISVICE/x64
+fi
 
-# Link in your spangly new files
-for spam in `ls $LUTRISVICE/lutrisOldViceFiles`;do
-ln -s $SOURCEDIR/src/${spam} $LUTRISVICE/${spam}
-done
+# remove and relink utils
 rm -f $LUTRISVICE/petcat $LUTRISVICE/cartconv
 ln -s $SOURCEDIR/src/tools/petcat/petcat $LUTRISVICE/petcat
 ln -s $SOURCEDIR/src/tools/cartconv/cartconv $LUTRISVICE/cartconv
+
+# Link in your spangly new files, except the tools and x64
+for spam in `ls $LUTRISVICE/lutrisOldViceFiles`;do
+  if [ "${spam}" != "x64" ] || [ "${spam}" != "petcat" ] || [ "${spam}" != "cartconv" ] ;then
+    ln -s $SOURCEDIR/src/${spam} $LUTRISVICE/${spam}
+  fi
+done
 
 echo "File links done."
 
