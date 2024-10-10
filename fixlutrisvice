@@ -85,7 +85,7 @@ ln -s $SOURCEDIR/src/tools/cartconv/cartconv $LUTRISVICE/cartconv
 
 # Link in your spangly new files, except the tools and x64
 for spam in `ls $LUTRISVICE/lutrisOldViceFiles`;do
-  if [ "${spam}" != "x64" ] || [ "${spam}" != "petcat" ] || [ "${spam}" != "cartconv" ] ;then
+  if [ "${spam}" != "x64" ] && [ "${spam}" != "petcat" ] && [ "${spam}" != "cartconv" ] ;then
     ln -s $SOURCEDIR/src/${spam} $LUTRISVICE/${spam}
   fi
 done
