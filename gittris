@@ -25,7 +25,7 @@ if [ "${HOMESRC}/ULWGL-launcher/.git/config" ];then
   cd "${HOMESRC}/ULWGL-launcher"
   git pull --recurse-submodules
   sudo make clean
-  sudo rm -rf /home/shodan/source/ULWGL-launcher/usr
+  sudo rm -rf ${HOMESRC}/ULWGL-launcher/usr
   sudo ./configure.sh --prefix=/usr
   sudo make
   sudo make install
