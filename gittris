@@ -20,15 +20,16 @@ fi
 # link lutris binary to something in our path
 ln -s "${HOMESRC}/lutris/bin/lutris" "${DSTLINK}/lutris"
 
-#Never got this to work as a user, so I do it systemwide via sudo. Feel free to correct
+# Updated - found command to do this as a user. requires the installation of python3-venv
+# old build used to: "sudo ./configure.sh --prefix=/usr"
 if [ "${HOMESRC}/ULWGL-launcher/.git/config" ];then
   cd "${HOMESRC}/ULWGL-launcher"
   git pull --recurse-submodules
-  sudo make clean
-  sudo rm -rf ${HOMESRC}/ULWGL-launcher/usr
-  sudo ./configure.sh --prefix=/usr
-  sudo make
-  sudo make install
+  make clean
+  rm -rf ${HOMESRC}/ULWGL-launcher/usr
+  ./configure.sh --user-install
+  make
+  make install
 else
   echo "ULWGL not found - performing first clone"
   cd "${HOMESRC}"
