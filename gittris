@@ -8,9 +8,11 @@ if [ ! -d "${HOMESRC}" ];then
   echo "Created a source directory in home for you. Change the variable at the top of the script if you want it located elsewhere"
 fi
 
-if [ "${HOMESRC}/lutris/.git/config" ];then
+if [ -d "${HOMESRC}/lutris/.git" ];then
   cd "${HOMESRC}/lutris"
-  git pull
+  git fetch
+  git reset --hard HEAD
+  git merge '@{u}'
 else
   echo "Lutris not found - performing first clone"
   cd "${HOMESRC}"
@@ -18,15 +20,18 @@ else
 fi
 
 # link lutris binary to something in our path
+rm -f "${DSTLINK}/lutris"
 ln -s "${HOMESRC}/lutris/bin/lutris" "${DSTLINK}/lutris"
 
 # Updated - found command to do this as a user. requires the installation of python3-venv
 # old build used to: "sudo ./configure.sh --prefix=/usr"
-if [ "${HOMESRC}/ULWGL-launcher/.git/config" ];then
+if [ -d "${HOMESRC}/ULWGL-launcher/.git" ];then
   cd "${HOMESRC}/ULWGL-launcher"
-  git pull --recurse-submodules
   make clean
   rm -rf ${HOMESRC}/ULWGL-launcher/usr
+  git fetch
+  git reset --hard HEAD
+  git merge '@{u}'
   ./configure.sh --user-install
   make
   make install
