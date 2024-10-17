@@ -18,8 +18,7 @@ else
   cd "${HOMESRC}"
   git clone https://github.com/lutris/lutris.git
 fi
-
-# link lutris binary to something in our path
+# link lutris binary to something in our path - user usually has .local/bin
 rm -f "${DSTLINK}/lutris"
 ln -s "${HOMESRC}/lutris/bin/lutris" "${DSTLINK}/lutris"
 
@@ -39,4 +38,7 @@ else
   echo "ULWGL not found - performing first clone"
   cd "${HOMESRC}"
   git clone https://github.com/Open-Wine-Components/ULWGL-launcher.git
+  ./configure.sh --user-install
+  make
+  make install
 fi
