@@ -43,3 +43,8 @@ else
   make
   make install
 fi
+
+if [ `echo $PATH | grep $DSTLINK >/dev/null; echo $?` -ne 0 ];then
+  echo "Warning: Link destination not found in PATH - might want to change DSTLINK in script"
+fi
+
