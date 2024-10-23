@@ -38,6 +38,7 @@ else
   echo "ULWGL not found - performing first clone"
   cd "${HOMESRC}"
   git clone https://github.com/Open-Wine-Components/ULWGL-launcher.git
+  cd ULWGL-launcher
   ./configure.sh --user-install
   make
   make install
