@@ -1,7 +1,9 @@
 #!/bin/bash
 #
-# The idea behind this is to fix up the Lutris VICE runner by linking in a more modern one you built
+# The idea behind this is to fix up the Lutris VICE runner (3.1) by linking in a more modern one you built
 # It won't do the compile for you - you need to fix that up yourself
+# Anything newer than 3.3 also means the -sdl2renderer flag in the python needs to be removed
+# Also on ./configure, handle whether user includes the old x64 (--enable-x64)
 
 ## Defaults:
 # /usr/share/local/vice/* - VICE files, roms etc from the VICE archive - System path, will have files if you installed from package
@@ -14,22 +16,21 @@
 # User params for whether to install per user (which better supports flatpak etc.)
 # More checks, system package, ownership checks etc. There are always more checks
 
-## EDITME
-if [ ! -a ~/.lutrisvicerun ];then
-  echo "Firstrun! Please check the variables, then touch ~/.lutrisvicerun "
-  exit 0
-fi
-
 ## Variables
 # the VICE you compiled
 SOURCEDIR="$HOME/source/vice-3.8"
 # where lutris puts its VICE binaries
 LUTRISVICE="$HOME/.local/share/lutris/runners/vice/bin"
-
 # System VICE support files
 SYSVICE="/usr/local/share/vice"
 # User VICE support files
 USERVICE="$HOME/.local/share/vice"
+
+## EDITME
+if [ -z ~/.lutrisvicerun ];then
+  echo "Firstrun! Please check the variables, then touch ~/.lutrisvicerun"
+  exit 0
+fi
 
 # Some dir checks
 if [ -z $SOURCEDIR ];then
@@ -48,13 +49,13 @@ if [ -z $SOURCEDIR/src/x64sc ];then
 fi
 
 if [ -z $HOME/.local/share/lutris/runners/vice ];then
-  echo "Lutris VICE runner not installed - recommend you install it first"
+  echo "Lutris VICE runner not installed - recommend you install it first or it will overwrite this"
   exit 1
 fi
 
 # Did you already run this?
 if [ `find $LUTRISVICE -maxdepth 1 -type l | wc -l` -ne "0" ];then
-  echo "Links already established in $LUTRISVICE - did you run this already?"
+  echo "Links already established in $LUTRISVICE - did you run this already? Clean out links from $LUTRISVICE to re-run"
   exit 1
 fi
 
@@ -70,11 +71,13 @@ if [ ! -d $USERVICE ];then
 fi
 
 # Move the lutris runner files (compiled against old libs etc which probably aren't in your distro anymore)
-mkdir -f $LUTRISVICE/lutrisOldViceFiles
+mkdir $LUTRISVICE/lutrisOldViceFiles
 mv -f $LUTRISVICE/* $LUTRISVICE/lutrisOldViceFiles
 
-# new vice doesn't compile old x64, only x64sc, so duplicate that
-if [ "$LUTRISVICE/x64" ];then
+# If new vice doesn't compile old x64, only x64sc, duplicate that as lutris uses x64
+if [ -a "$SOURCEDIR/src/x64" ];then
+  ln -s $SOURCEDIR/src/x64 $LUTRISVICE/x64
+else
   ln -s $SOURCEDIR/src/x64sc $LUTRISVICE/x64
 fi
 
@@ -98,4 +101,7 @@ sudo cp -r $SOURCEDIR/data/* $SYSVICE/
 touch ~/.lutrisvicerun
 
 echo "Support file copy done"
+echo "You will need to edit the python in Lutris (lutris/runners/vice.py)"
+echo "About line ~207, remove the 3 line block starting: if self.runner_config.get(renderer):"
+echo "and the next 3 line block starting: if not self.runner_config.get(aspect_ratio, True):"
 echo "VICE run games for Lutris should now work!"
