@@ -23,28 +23,26 @@ rm -f "${DSTLINK}/lutris"
 ln -s "${HOMESRC}/lutris/bin/lutris" "${DSTLINK}/lutris"
 
 # Updated - found command to do this as a user. requires the installation of python3-venv
+# Update2 - this moved to umu-launcher
 # old build used to: "sudo ./configure.sh --prefix=/usr"
-if [ -d "${HOMESRC}/ULWGL-launcher/.git" ];then
-  cd "${HOMESRC}/ULWGL-launcher"
+if [ -d "${HOMESRC}/umu-launcher/.git" ];then
+  cd "${HOMESRC}/umu-launcher"
   make clean
-  rm -rf ${HOMESRC}/ULWGL-launcher/usr
+  rm -rf ${HOMESRC}/umu-launcher/usr
   git fetch
   git reset --hard HEAD
   git merge '@{u}'
   ./configure.sh --user-install
-  make
   make install
 else
   echo "ULWGL not found - performing first clone"
   cd "${HOMESRC}"
-  git clone https://github.com/Open-Wine-Components/ULWGL-launcher.git
-  cd ULWGL-launcher
+  git clone https://github.com/Open-Wine-Components/umu-launcher.git
+  cd umu-launcher
   ./configure.sh --user-install
-  make
   make install
 fi
 
 if [ `echo $PATH | grep $DSTLINK >/dev/null; echo $?` -ne 0 ];then
   echo "Warning: Link destination not found in PATH - might want to change DSTLINK in script"
 fi
-
