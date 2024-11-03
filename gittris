@@ -35,7 +35,7 @@ if [ -d "${HOMESRC}/umu-launcher/.git" ];then
   ./configure.sh --user-install
   make install
 else
-  echo "ULWGL not found - performing first clone"
+  echo "umu-launcher not found - performing first clone"
   cd "${HOMESRC}"
   git clone https://github.com/Open-Wine-Components/umu-launcher.git
   cd umu-launcher
