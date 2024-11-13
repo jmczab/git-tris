@@ -33,6 +33,12 @@ if [ -d "${HOMESRC}/umu-launcher/.git" ];then
   git reset --hard HEAD
   git merge '@{u}'
   ./configure.sh --user-install
+  echo "Running make (quietly)"
+  make 2>&1 >>/dev/null
+  if [ $? -ne 0 ];then
+    echo "Error running build - recommend checking manually, then run make install"
+    exit 1
+  fi
   make install
 else
   echo "umu-launcher not found - performing first clone"
@@ -40,6 +46,12 @@ else
   git clone https://github.com/Open-Wine-Components/umu-launcher.git
   cd umu-launcher
   ./configure.sh --user-install
+  echo "Running make (quietly)"
+  make 2>&1 >>/dev/null
+  if [ $? -ne 0 ];then
+    echo "Error running build - recommend checking manually, then run make install"
+    exit 1
+  fi
   make install
 fi
 
