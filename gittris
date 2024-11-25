@@ -27,7 +27,8 @@ ln -s "${HOMESRC}/lutris/bin/lutris" "${DSTLINK}/lutris"
 # old build used to: "sudo ./configure.sh --prefix=/usr"
 if [ -d "${HOMESRC}/umu-launcher/.git" ];then
   cd "${HOMESRC}/umu-launcher"
-  make clean
+  echo "Running clean (quietly)"
+  make clean  2>&1 >>/dev/null
   rm -rf ${HOMESRC}/umu-launcher/usr
   git fetch
   git reset --hard HEAD
