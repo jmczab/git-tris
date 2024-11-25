@@ -8,16 +8,20 @@ In short? A directory with Windows files in it.
 ## *How do I create a WINE prefix?*
 The most basic way is to set the variable WINEPREFIX to a new directory, then execute any wine command.
 For example, this will create a new prefix
-```mkdir ~/mynewprefix```
-```export WINEPREFIX=~/mynewprefix```
-```wine wineboot```
+```
+mkdir ~/mynewprefix
+export WINEPREFIX=~/mynewprefix
+wine wineboot
+```
 
 ## *How do I interact with an existing WINE prefix?*
 Again, set WINEPREIX so any WINE-related commands after that will be executed in that prefix.
 So if you did
-```export WINEPREFIX=/home/user/myprefix```
-```wine winecfg```
-...it would run the wine configuration panel in that prefix.
+```
+export WINEPREFIX=/home/user/myprefix
+wine winecfg
+```
+...it would run the wine configuration panel in that prefix using the system WINE.
 
 ## *What are the WINE variables?*
 WINE recognises a few variables - see 'man wine' for a full list, but most commonly: -
@@ -40,12 +44,17 @@ To be honest, the best and quickest way is to use [winetricks](https://github.co
 - Winetricks is a shell script, but can run in the user context.
 - Winetricks caches downloads for reuse (~/.cache/winetricks) so disk use can grow a bit without you realising!
 
-### Example 1 - create new wineprefix then run and installer you downloaded
-```mkdir -p /opt/wine/newsoftware```
-```export WINEPREFIX=/opt/wine/newsoftware```
-```wine ~/Downloads/software_installer.exe```
+### Example 1 - create new wineprefix, then run and installer you downloaded
+```
+mkdir -p /opt/wine/newsoftware
+export WINEPREFIX=/opt/wine/newsoftware
+wine wineboot
+wine ~/Downloads/software_installer.exe
+```
 
-### Example 2 - create new wineprefix then install .NET 4.8 using winetricks and windows core fonts
-```mkdir -p /opt/wine/appneedingdotnet48```
-```export WINEPREFIX=/opt/wine/appneedingdotnet48```
-```winetricks -q dotnet48 corefonts```
+### Example 2 - create new wineprefix then install .NET 4.8 using winetricks and windows core fonts - quietly and unattended
+```
+mkdir -p /opt/wine/appneedingdotnet48
+export WINEPREFIX=/opt/wine/appneedingdotnet48
+winetricks -q dotnet48 corefonts
+```
