@@ -58,6 +58,7 @@ $ apt install python3-pil python3-numpy python3-build python3-hatchling python3-
 ```
 
 ## Git Lutris and Git umu-launcher
+Now handled by the handy gittris script in this very repo!
 ```
 $ mkdir ~/source && cd ~/source && git clone https://github.com/lutris/lutris.git
 ```
