@@ -1,10 +1,5 @@
 # System Reinstall instructions
 
-## Fire snapd into the heart of the sun
-This is because I hate the interface to snap and I'd rather sandbox my own stuff when required
-```
-$ sudo apt autoremove --purge snapd
-```
 ## Add 32bit support 
 This is for WINE and other apps that need it
 ```
@@ -69,6 +64,11 @@ System is pretty much ready to install and game!
 
 
 # Optional stuff
+Fire snapd into the heart of the sun - because I hate the interface to snap and I'd rather sandbox my own stuff when required
+```
+$ sudo apt autoremove --purge snapd
+```
+
 Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats)
 ```
 $ sudo usermod -a -G games myuser
