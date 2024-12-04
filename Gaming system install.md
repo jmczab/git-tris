@@ -50,7 +50,8 @@ $ sudo mkdir /opt/games/SteamLibrary && sudo chown myuser:games /opt/games/Steam
 ```
 
 Run Steam once so it sets up and patches, and then login. Add library /opt/games/SteamLibrary
-As alternatives to Steam Proton, grab the latest GE proton (https://github.com/GloriousEggroll/proton-ge-custom), untar to ~/.steam/root/compatibilitytools.d/ (needs to be created)
+
+As an alternative to Steam Proton, grab the latest GE proton (https://github.com/GloriousEggroll/proton-ge-custom), untar to ~/.steam/root/compatibilitytools.d/ (needs to be created)
 
 ## Lutris Pre-Reqs
 ```
