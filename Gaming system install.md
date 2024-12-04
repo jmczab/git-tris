@@ -32,6 +32,8 @@ $ sudo apt install libegl-mesa0 libegl-mesa0:i386 libegl1-mesa-dev libgl1-mesa-d
 ```
 
 ## Add WINE staging from WineHQ
+
+Install instructions for WINE for Ubuntu 24 (noble) and Mint 22
 ```
 $ sudo mkdir -pm755 /etc/apt/keyrings
 $ sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
