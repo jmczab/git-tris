@@ -5,7 +5,10 @@ This is for WINE and other apps that need it
 ```
 $ sudo dpkg --add-architecture i386
 ```
-..restart to get permisisons, and get rid of snap! :)
+
+*
+Restart the system!
+*
 
 ## Drivers and WINE
 NVIDIA: Install latest NVIDIA drivers from their website
