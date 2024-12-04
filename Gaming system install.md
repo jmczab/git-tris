@@ -5,15 +5,6 @@ This is because I hate the interface to snap and I'd rather sandbox my own stuff
 ```
 $ sudo apt autoremove --purge snapd
 ```
-
-Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats)
-```
-$ sudo usermod -a -G games myuser
-$ sudo mkdir /games
-$ sudo chown myuser:games /games
-$ sudo chmod g+s /games
-$ sudo usermod -a -G input myuser 
-```
 ## Add 32bit support 
 This is for WINE and other apps that need it
 ```
@@ -43,10 +34,9 @@ $ sudo apt install --install-recommends winehq-staging -y
 
 # Gaming setup
 
-Install Steam, basic development stuff, create a separate SteamLibrary location for steam to store its games
+Install Steam, basic development stuff
 ```
 $ sudo apt install steam-installer cmake git build-essential scdoc -y
-$ sudo mkdir /opt/games/SteamLibrary && sudo chown myuser:games /opt/games/SteamLibrary && chmod g+s /games/SteamLibrary
 ```
 
 Run Steam once so it sets up and patches, and then login. Add library /opt/games/SteamLibrary
@@ -76,3 +66,19 @@ $ cd ~/source/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/
 
 # Ready player tux
 System is pretty much ready to install and game!
+
+
+# Optional stuff
+Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats)
+```
+$ sudo usermod -a -G games myuser
+$ sudo mkdir /games
+$ sudo chown myuser:games /games
+$ sudo chmod g+s /games
+$ sudo usermod -a -G input myuser 
+```
+
+Create a separate SteamLibrary location for steam to store its games
+```
+$ sudo mkdir /opt/games/SteamLibrary && sudo chown myuser:games /opt/games/SteamLibrary && chmod g+s /games/SteamLibrary
+```
