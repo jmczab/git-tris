@@ -6,9 +6,7 @@ This is for WINE and other apps that need it
 $ sudo dpkg --add-architecture i386
 ```
 
-*
-Restart the system!
-*
+*Restart the system!*
 
 ## Drivers and WINE
 NVIDIA: Install latest NVIDIA drivers from their website
