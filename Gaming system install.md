@@ -1,4 +1,4 @@
-# System Reinstall instructions
+# System install instructions for gaming
 
 ## Add 32bit support 
 This is for WINE and other apps that need it
