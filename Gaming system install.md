@@ -3,7 +3,7 @@
 ## Add 32bit support 
 This is for WINE and other apps that need it
 ```
-$ sudo dpkg --add-architecture i386
+sudo dpkg --add-architecture i386
 ```
 
 *Restart the system!*
