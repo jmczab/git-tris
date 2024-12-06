@@ -32,7 +32,7 @@ WINE recognises a few variables - see 'man wine' for a full list, but most commo
 
 ## *What are the limitations on the architectures?*
 The best thing is to focus on is compatibility.
-A 64 bit prefix will only run 64 and 32 bit code. A 32 bit prefix will run 32 bit and 16 bit code.
+A 64 bit prefix will only run 64 and 32 bit code. A 32 bit prefix will run 32 bit and 16 bit code. See WINEARCH variables above!
 
 For example, you might know of some 32 bit software, and decide to put it in a 64 bit prefix. However, the software comes with a launcher or service that is 16 bit, so a 32 bit prefix is the only option.
 Another example is  supporting software might only come as a 16 bit installer. So, choose as you see fit, but try and select the highest possible.
@@ -57,4 +57,12 @@ wine ~/Downloads/software_installer.exe
 mkdir -p /opt/wine/appneedingdotnet48
 export WINEPREFIX=/opt/wine/appneedingdotnet48
 winetricks -q dotnet48 corefonts
+```
+
+### Example 3 - create new 32 bit wineprefix
+```
+mkdir -p /opt/wine/wine32bit
+export WINEPREFIX=/opt/wine/wine32bit
+export WINEARCH=win32
+wine wineboot
 ```
