@@ -3,7 +3,7 @@
 In short? A directory with Windows files in it.
 - **dosdevices** - symlinks mimicing drives available to the prefix
 - **drive_c** - Obviously containing the C: drive contents
-- **various reg files** - mimicing the registry
+- **various reg files** - mimicing the registry and storing Windows settings
 
 ## *How do I create a WINE prefix?*
 The most basic way is to set the variable WINEPREFIX to a new directory, then execute any wine command.
