@@ -8,6 +8,16 @@ if [ ! -d "${HOMESRC}" ];then
   echo "Created a source directory in home for you. Change the variable at the top of the script if you want it located elsewhere"
 fi
 
+if [ ! -d "${DSTLINK}" ];then
+  mkdir "${DSTLINK}"
+  if [ $? -ne 0 ];then
+    echo "Error creating a link directory. Check permissions on ${DSTLINK}"
+    exit 1
+  fi
+  echo "Created a link directory. Change the variable at the top of the script if you want it located elsewhere. Also, make sure it is in your PATH"
+fi
+
+
 if [ -d "${HOMESRC}/lutris/.git" ];then
   cd "${HOMESRC}/lutris"
   git fetch
