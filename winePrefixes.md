@@ -66,3 +66,10 @@ export WINEPREFIX=/opt/wine/wine32bit
 export WINEARCH=win32
 wine wineboot
 ```
+
+### Example 4 - I'm running 4k screen and the fonts are TINY
+```
+export WINEPREFIX=/opt/wine/myfontsaretiny
+wine wincfg
+```
+Go into the "graphics" tab and move the slider - I find 144 or 168 acceptable
