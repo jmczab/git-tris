@@ -1,4 +1,4 @@
-# System install instructions for gaming
+# Mint 22 - System install instructions for gaming
 
 ## Add 32bit support 
 This is for WINE and other apps that need it
@@ -32,7 +32,7 @@ sudo apt install --install-recommends winehq-staging -y
 
 Install Steam, basic development stuff
 ```
-sudo apt install steam-installer cmake git build-essential scdoc -y
+sudo apt install steam-installer curl cmake git build-essential scdoc -y
 ```
 
 Run Steam once so it sets up and patches, and then login. Add library /opt/games/SteamLibrary
@@ -46,15 +46,24 @@ sudo apt install python3-pil python3-numpy python3-build python3-hatchling pytho
 
 ## Git Lutris and Git umu-launcher
 Now handled by the handy gittris script in this very repo!
+
+### Automagic, assuming you trust my script
+```
+mkdir ~/source && cd ~/source && git clone https://github.com/jmczab/git-tris
+~/source/git-tris/gittris
+```
+
+### Manual, if you don't trust my script :)
 ```
 mkdir ~/source && cd ~/source && git clone https://github.com/lutris/lutris.git
 ```
 Link and run Lutris once, let it install stuff and update
 ```
-sudo ln -s ~/source/lutris/bin/lutris /usr/local/bin/lutris && lutris -d
+sudo ln -s ~/source/lutris/bin/lutris /usr/local/bin/lutris
+lutris -d
 ```
 
-Install umu-launcher so Lutris can access and use Steam protons
+Install Git umu-launcher so Lutris can access and use Steam protons - preferred over the static version, as updating git keeps them in step
 ```
 cd ~/source && git clone https://github.com/Open-Wine-Components/umu-launcher.git
 cd ~/source/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/null && make install
