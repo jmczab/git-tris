@@ -8,21 +8,22 @@ sudo dpkg --add-architecture i386
 
 *Restart the system!*
 
-## Drivers and WINE
-NVIDIA: Install latest NVIDIA drivers from their website
+## GPU Drivers
+### NVIDIA
+Install latest [NVIDIA drivers from their website](https://www.nvidia.com/en-us/drivers/) - This should also pull in vulkan support
+Note: If you have a very new GPU, Nvidia's 560 driver is broken, so use 565 onwards
 
-*-or-*
+### AMD
+Stick with repo Mesa drivers (thankfully up to date now) or you can always go to [Kisak's PPA](https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa) which is reliable
 
-AMD: Stick with distro Mesa drivers (thankfully up to date now)
-
-Mesa list for ubuntu/mint and vulkan
+Mesa and vulkan install command for ubuntu24/mint22
 ```
 sudo apt install libegl-mesa0 libegl-mesa0:i386 libegl1-mesa-dev libgl1-mesa-dri libgl1-mesa-dri:i386 libglapi-mesa libglapi-mesa:i386 libglu1-mesa libglu1-mesa:i386 libglu1-mesa-dev libglx-mesa0 libglx-mesa0:i386 libosmesa6 libosmesa6:i386 mesa-utils mesa-utils-bin mesa-va-drivers mesa-va-drivers:i386 mesa-vdpau-drivers mesa-vdpau-drivers:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386 libvulkan1 libvulkan1:i386
 ```
 
-## Add WINE staging from WineHQ
+## WINE staging from WineHQ
 
-Install instructions for WINE for Ubuntu 24 (noble) and Mint 22
+Install instructions for WINE for Ubuntu 24 (noble) and Mint 22 see [WineHQ.org](https://www.winehq.org) for others
 ```
 sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
@@ -31,8 +32,7 @@ sudo apt install --install-recommends winehq-staging -y
 ```
 
 # Gaming setup
-
-Install Steam, basic development stuff
+Install Steam, basic tools
 ```
 sudo apt install steam-installer curl cmake git build-essential scdoc -y
 ```
@@ -44,6 +44,11 @@ As an alternative to Steam Proton, grab the latest GE proton (https://github.com
 ## Lutris Pre-Reqs
 ```
 sudo apt install python3-pil python3-numpy python3-build python3-hatchling python3-installer python3-yaml python3-venv cabextract
+```
+## Other pre-reqs
+Lutris also needs vulkan-tools and fluidsynth, but the source commands may depend on your distribution. For Ubuntu 24/Mint22 however
+```
+sudo apt install vulkan-tools fluidsynth
 ```
 
 ## Git Lutris and Git umu-launcher
