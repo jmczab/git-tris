@@ -5,9 +5,6 @@ This is for WINE and other apps that need it
 ```
 sudo dpkg --add-architecture i386
 ```
-
-*Restart the system!*
-
 ## GPU Drivers
 ### NVIDIA
 Install latest [NVIDIA drivers from their website](https://www.nvidia.com/en-us/drivers/) - This should also pull in vulkan support
@@ -20,6 +17,9 @@ Mesa and vulkan install command for ubuntu24/mint22
 ```
 sudo apt install libegl-mesa0 libegl-mesa0:i386 libegl1-mesa-dev libgl1-mesa-dri libgl1-mesa-dri:i386 libglapi-mesa libglapi-mesa:i386 libglu1-mesa libglu1-mesa:i386 libglu1-mesa-dev libglx-mesa0 libglx-mesa0:i386 libosmesa6 libosmesa6:i386 mesa-utils mesa-utils-bin mesa-va-drivers mesa-va-drivers:i386 mesa-vdpau-drivers mesa-vdpau-drivers:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386 libvulkan1 libvulkan1:i386
 ```
+
+*Restarting the system at this point is a good idea!*
+
 
 ## WINE staging from WineHQ
 
@@ -77,16 +77,16 @@ cd ~/source/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/nu
 ```
 
 # Ready player tux
-System is pretty much ready to install and game!
+System is pretty much ready to install games, and game!
 
 
 # Optional stuff
-Fire snapd into the heart of the sun - because I hate the interface to snap and I'd rather sandbox my own stuff when required
+Fire snapd into the heart of the sun - because I hate the interface to snap and I'd rather sandbox my own stuff when required, and FlatPak is much more robust
 ```
 sudo apt autoremove --purge snapd
 ```
 
-Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats)
+Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats. Yes, I still enjoy (Stepmania)[https://github.com/stepmania/stepmania])
 ```
 sudo usermod -a -G games myuser
 sudo mkdir /opt/games
