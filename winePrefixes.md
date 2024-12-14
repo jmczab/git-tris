@@ -23,6 +23,14 @@ wine winecfg
 ```
 ...it would run the wine configuration panel in that prefix using the system WINE.
 
+## *How do I use a specific version of WINE with a WINE prefix*
+If you have multiple versions of WINE, then things can be confusing - every time you interact with a prefix, the version of WINE you run will reconfigure it to its "expected" settings. Typically this isn't a problem, but you may also need a prefix using a very old WINE version that doesn't play well when updated by the latest.
+```
+export WINEPREFIX=/home/user/myprefix
+export WINELOADER=/opt/wineversion/wine7/bin/wine
+$WINELOADER explorer
+```
+
 ## *What are the WINE variables?*
 WINE recognises a few variables - see 'man wine' for a full list, but most commonly: -
 - WINELOADER - if you have multiple versions of WINE, set this to a specific "wine" executable as needed
@@ -60,6 +68,27 @@ However, when a game dependant on .NET runs into issues, you can replace mono wi
 
 ### Gecko
 Gecko is another compatibility layer - Because Windows integrates internet exporer with its OS, WINE uses its own layer. Gecko is an extended compatibility layer, but is rarely needed for games.
+
+## *My Windows application does not support my Linux native language*
+Old Windows software typically relies on the system language being some variant of US English. However, if you don't use English and have a non-default keyboard, this can be a problem. Generally, the variables are stored in the registry under HKEY_CURRENT_USER\Control Panel\International
+
+You can set the LANG environment variable before launching WINE, which will cause WINE to rewrite some of the Windows system variables. 
+```
+export WINEPREFIX=~/winelangages
+LANG=en_US.UTF-8 wine regedit
+```
+
+**Note: Language settings will get reset every time you run a WINE command in this prefix without the same LANG set**
+
+You can make changes in the registry - like the default date formats, again, using the same LANG setting so it persists, then use regedit to view them, then launch the exe.
+```
+LANG=en_US.UTF-8 wine reg add "HKCU\Control Panel\International" /v sLongDate /t REG_SZ /d "ddd, MMM d, yyyy" /f
+LANG=en_US.UTF-8 wine regedit
+LANG=en_US.UTF-8 wine $WINEPREFIX/drive_c/MySoftware/application.exe
+```
+
+
+# Examples
 
 ### Example 1 - create new wineprefix, then run and installer you downloaded
 ```
