@@ -35,7 +35,7 @@ Install Steam, basic development stuff
 sudo apt install steam-installer curl cmake git build-essential scdoc -y
 ```
 
-Run Steam once so it sets up and patches, and then login. Add library /opt/games/SteamLibrary
+Run Steam once so it sets up and patches, and then login.
 
 As an alternative to Steam Proton, grab the latest GE proton (https://github.com/GloriousEggroll/proton-ge-custom), untar to ~/.steam/root/compatibilitytools.d/ (needs to be created)
 
@@ -82,13 +82,16 @@ sudo apt autoremove --purge snapd
 Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats)
 ```
 sudo usermod -a -G games myuser
-sudo mkdir /games
-sudo chown myuser:games /games
-sudo chmod g+s /games
+sudo mkdir /opt/games
+sudo chown myuser:games /opt/games
+sudo chmod g+s /opt/games
 sudo usermod -a -G input myuser 
 ```
 
-Create a separate SteamLibrary location for steam to store its games
+Create a separate SteamLibrary location for steam to store its games, and one for Lutris
 ```
-sudo mkdir /opt/games/SteamLibrary && sudo chown myuser:games /opt/games/SteamLibrary && chmod g+s /games/SteamLibrary
+mkdir /opt/games/SteamLibrary
+mkdir /opt/games/lutris
 ```
+
+Add /opt/games/SteamLibrary to Steam's default library location, and update Lutris preferences to use /opt/games/lutris
