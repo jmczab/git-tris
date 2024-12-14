@@ -31,7 +31,7 @@ sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/
 sudo apt install --install-recommends winehq-staging -y
 ```
 
-# Gaming setup
+## Gaming setup
 Install Steam, basic tools
 ```
 sudo apt install steam-installer curl cmake git build-essential scdoc -y
@@ -80,7 +80,7 @@ cd ~/source/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/nu
 System is pretty much ready to install games, and game!
 
 
-# Optional stuff
+## Optional stuff
 Fire snapd into the heart of the sun - because I hate the interface to snap and I'd rather sandbox my own stuff when required, and FlatPak is much more robust
 ```
 sudo apt autoremove --purge snapd
