@@ -10,7 +10,9 @@ sudo dpkg --add-architecture i386
 
 ## Drivers and WINE
 NVIDIA: Install latest NVIDIA drivers from their website
+
 *-or-*
+
 AMD: Stick with distro Mesa drivers (thankfully up to date now)
 
 Mesa list for ubuntu/mint and vulkan
