@@ -35,7 +35,7 @@ export WINEPREFIX=~/mynewprefix
 wine wineboot
 ```
 **Note:** I use "export WINEPREFIX" so every wine command I issue in that terminal window after that uses the same prefix.
-You can also prefix the prefix... *WINEPREFIX=~/mynewprefix wine wineboot* ...to every wine command, which is better for automated builds and scripts.
+You can also prefix the prefix to every wine command... *WINEPREFIX=~/mynewprefix wine wineboot* ...which is better for automated builds and scripts.
 
 ## *How do I interact with an existing WINE prefix?*
 Again, set WINEPREIX so any WINE-related commands after that will be executed in that prefix.
