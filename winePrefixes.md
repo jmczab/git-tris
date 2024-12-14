@@ -44,6 +44,23 @@ To be honest, the best and quickest way is to use [winetricks](https://github.co
 - Winetricks is a shell script, but can run in the user context.
 - Winetricks caches downloads for reuse (~/.cache/winetricks) so disk use can grow a bit without you realising!
 
+## What is a DLL override and why do I need it?
+WINE provides replacement functions for a LOT of Windows DLLs, but some software needs the original file. The use of these is determined by the DLL overrides.
+If you run the configuration tool (wine winecfg) you can see the overrides under the "Libraries" tab. 
+
+Each entry corresponds to a DLL, with various options of native/builtin. This choice just means "use the DLL on the disk"/"use the wine DLL" when the DLL is used.
+These can be set on the command line, or by winetricks
+
+## I created a prefix, but I am getting a prompt for something called mono/gecko?
+### Mono
+When you installed WINE, it will also have pulled a package called "mono-runtime" or similar.
+Mono is a replacement for .NET in WINE prefixes and installing it in a new prefix does not cause any issues. The prompt usually a new version and is updating its runtimes.
+
+However, when a game dependant on .NET runs into issues, you can replace mono with a full fat .NET install using winetricks. This will automatically remove mono, if installed.
+
+### Gecko
+Gecko is another compatibility layer - Because Windows integrates internet exporer with its OS, WINE uses its own layer. Gecko is an extended compatibility layer, but is rarely needed for games.
+
 ### Example 1 - create new wineprefix, then run and installer you downloaded
 ```
 mkdir -p /opt/wine/newsoftware
