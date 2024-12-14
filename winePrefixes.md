@@ -1,4 +1,23 @@
-# WINE prefixes
+# WINE background
+
+## *What is WINE?*
+WINE is a set of compatibility tools that allows Windows commands and operating system calls to work on Linux, mainly by mapping them to their equivalent in Linux.
+
+## *Where to get WINE and what to install?*
+The main Linux distributions provide their own WINE in their repositories, but I personally avoid using those.
+
+My choice for pre-packaged WINE for me is also the source - (winehq.org)[https://www.winehq.org], but as with many Linux projects, you can download and compile the source yourself.
+
+## *What does Proton have to do with WINE?*
+Proton is a version of WINE packaged and built to provide more focussed support for Windows games. A bunch of developers got together (mainly Valve, but also many notable others like "GloriousEggroll") produce and maintain it. Things like the Steam deck rely on it to run Windows titles.
+
+## *Why do you capitalise 'WINE'?*
+Well, it is an acronym for "wine is not emulation" or "wine is not an emulator" (which would be WINAE and just ...doesn't work)
+
+It is "not an emulator" because it maps functions, rather than providing code (emulation) to do it, but there is always a line for emulation that gets broken somewhere :)
+
+# WINE prefixes and use
+
 ## *What is a WINE prefix?*
 In short? A directory with Windows files in it.
 - **dosdevices** - symlinks mimicing drives available to the prefix
@@ -116,9 +135,9 @@ export WINEARCH=win32
 wine wineboot
 ```
 
-### Example 4 - I'm running 4k screen and the fonts are TINY
+### Example 4 - I'm running 4k screen and the Windows application fonts are TINY
 ```
 export WINEPREFIX=/opt/wine/myfontsaretiny
 wine winecfg
 ```
-Go into the "graphics" tab and move the slider - I find 144 or 168 acceptable
+Yep, Windows dynamic DPI isn't here :) Go into the "graphics" tab and move the DPI slider - I find 144 or 168 acceptable.
