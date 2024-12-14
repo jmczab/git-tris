@@ -61,24 +61,24 @@ If you have all multislot WINE installs, this isn't much of an issue - just invo
 WINEPREFIX=~/myprefix /opt/wineversion/wine8/bin/wine explorer
 ```
 
-However, you may also have a *very old* WINE version that isn't multislot and doesn't play well, so will need to set *all* (or most) of the variables before running WINE commands.
+However, you may also have a WINE version that **isn't multislot** and doesn't play well, so will need to set *all* (or most) of the variables before running WINE commands.
 ```
-export WINEVERPATH="/opt/my-wine"
+export WINEVERPATH="/opt/my-custom-wine"
 export PATH="$WINEVERPATH/bin:$PATH"
 export WINESERVER="$WINEVERPATH/bin/wineserver"
 export WINELOADER="$WINEVERPATH/bin/wine"
 export WINEDLLPATH="$WINEVERPATH/lib/wine/fakedlls"
 export LD_LIBRARY_PATH="$WINEVERPATH/lib64:$WINEVERPATH/lib:$LD_LIBRARY_PATH"
-export WINEPREFIX=/home/user/myprefix
-$WINELOADER explorer
+export WINEARCH=win32
+export WINEPREFIX=/home/user/mycustomprefix
+$WINELOADER $WINEPREFIX/company/application/software.exe
 ```
 
-## *What are the limitations on the architectures?*
-The best thing is to focus on is compatibility.
+## *What are the limitations on architecture?*
+The best thing is to focus on is compatibility, but try and select the highest possible.
 A 64 bit prefix will only run 64 and 32 bit code. A 32 bit prefix will run 32 bit and 16 bit code. See WINEARCH variables above!
 
-For example, you might know of some 32 bit software, and decide to put it in a 64 bit prefix. However, the software comes with a launcher or service that is 16 bit, so a 32 bit prefix is the only option.
-Another example is  supporting software might only come as a 16 bit installer. So, choose as you see fit, but try and select the highest possible.
+For example, you might know of some 32 bit software, and decide to put it in a 64 bit prefix. However, the software comes with a launcher or service that is 16 bit, so a 32 bit prefix is the only option. Another example is  supporting software might only come as a 16 bit installer.
 
 
 ## *How do I install common Windows apps into a WINE prefix?*
@@ -115,8 +115,7 @@ LANG=en_US.UTF-8 wine wineboot
 LANG=en_US.UTF-8 wine regedit
 ```
 
-**Note: Language settings will get reset every time you run a WINE command in this prefix without the same LANG set.**
-
+**Note:** Language settings will get reset every time you run a WINE command in this prefix without the same LANG set.
 
 You can make changes in the registry - like the default date formats, again, using the same LANG setting so it persists, then use regedit to view them, then launch the exe.
 ```
@@ -142,6 +141,7 @@ mkdir -p /opt/wine/appneedingdotnet48
 export WINEPREFIX=/opt/wine/appneedingdotnet48
 winetricks -q dotnet48 corefonts
 ```
+If you have the mono-runtime installed, this will automatically execute remove_mono so there is no conflict.
 
 ### Example 3 - create new 32 bit wineprefix
 ```
@@ -150,6 +150,7 @@ export WINEPREFIX=/opt/wine/wine32bit
 export WINEARCH=win32
 wine wineboot
 ```
+When interacting with this prefix in future, WINE will know it is 32 bit and behave accordingly.
 
 ### Example 4 - I'm running 4k screen and the Windows application fonts are TINY
 ```
