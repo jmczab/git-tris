@@ -8,7 +8,7 @@ The main Linux distributions provide their own WINE in their repositories, but I
 
 My choice for pre-packaged WINE for me is also the source - (winehq.org)[https://www.winehq.org], but as with many Linux projects, you can download and compile the source yourself.
 
-I enable 32 support, and use wine-staging which is in development, but not bleeding edge. Using the recommended *sudo dpkg --add-architecture i386 && sudo apt install --install-recommends winehq-staging -y* is usually enough to support everything I need.
+I enable 32-bit support, and use wine-staging which is in development, but not bleeding edge. Using the recommended *sudo dpkg --add-architecture i386 && sudo apt install --install-recommends winehq-staging -y* is usually enough to support everything I need.
 
 ## *What does Proton have to do with WINE?*
 Proton is a version of WINE packaged and built to provide more focussed support for Windows games. A bunch of developers got together (mainly Valve, but also many notable others like "GloriousEggroll") produce and maintain it. Things like the Steam deck rely on it to run Windows titles.
