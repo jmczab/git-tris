@@ -21,7 +21,7 @@ It is "not an emulator" because it maps functions, rather than providing code (e
 # WINE prefixes and use
 
 ## *What is a WINE prefix?*
-In short? A directory with Windows files in it.
+In short? A directory with supporting files in it, so it looks like a Windows OS.
 - **dosdevices** - symlinks mimicing drives available to the prefix
 - **drive_c** - Obviously containing the C: drive contents
 - **various reg files** - mimicing the registry and storing Windows settings
