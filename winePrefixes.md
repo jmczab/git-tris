@@ -49,13 +49,11 @@ wine winecfg
 ## *What are the most common WINE variables, and what is multislot-wine?*
 These days, WINE is typically built as "multislot" - meaning the wine executable knows where to find its files, based on its local path. So if you invoke a specific wine command, it will pick up the relevant libaries etc.
 
-WINE recognises a few variables - see 'man wine' for a full list, but most commonly: -
-- WINEPREFIX - set this to the directory of the prefix (i.e. the directory that contains dosdevices, drive_c etc.)
-- WINEARCH - set to win32 or win64 as you need
-- WINELOADER - if you have multiple versions of WINE, set this to a specific "wine" executable as needed
-- WINESERVER - set this to a specific "wineserver" executable if needed, or it will look in the PATH
+WINE uses few variables - see 'man wine' for a full list and the specific version info below, but most commonly thanks to multislot WINE, you'll only need two: -
+- WINEPREFIX - where to store windows files - set this to the directory of the prefix (i.e. the directory that contains dosdevices, drive_c etc.)
+- WINEARCH - architecture - set to win32 or win64 as you need
 
-## *How do I use a specific version of WINE with a WINE prefix?*
+## *How do I use a specific version of WINE with a WINE prefix, and what about non-multislot?*
 If you have multiple versions of WINE, and every time you interact with a prefix, the version of WINE you run will reconfigure it to its "expected" settings. 
 
 If you have all multislot WINE installs, this isn't much of an issue - just invoke the wine you want against the prefix.
