@@ -46,20 +46,34 @@ wine winecfg
 ```
 ...it would run the wine configuration panel in that prefix using the system WINE.
 
-## *How do I use a specific version of WINE with a WINE prefix*
-If you have multiple versions of WINE, then things can be confusing - every time you interact with a prefix, the version of WINE you run will reconfigure it to its "expected" settings. Typically this isn't a problem, but you may also need a prefix using a very old WINE version that doesn't play well when updated by the latest.
-```
-export WINEPREFIX=/home/user/myprefix
-export WINELOADER=/opt/wineversion/wine7/bin/wine
-$WINELOADER explorer
-```
+## *What are the most common WINE variables, and what is multislot-wine?*
+These days, WINE is typically built as "multislot" - meaning the wine executable knows where to find its files, based on its local path. So if you invoke a specific wine command, it will pick up the relevant libaries etc.
 
-## *What are the WINE variables?*
 WINE recognises a few variables - see 'man wine' for a full list, but most commonly: -
-- WINELOADER - if you have multiple versions of WINE, set this to a specific "wine" executable as needed
 - WINEPREFIX - set this to the directory of the prefix (i.e. the directory that contains dosdevices, drive_c etc.)
 - WINEARCH - set to win32 or win64 as you need
+- WINELOADER - if you have multiple versions of WINE, set this to a specific "wine" executable as needed
 - WINESERVER - set this to a specific "wineserver" executable if needed, or it will look in the PATH
+
+## *How do I use a specific version of WINE with a WINE prefix?*
+If you have multiple versions of WINE, and every time you interact with a prefix, the version of WINE you run will reconfigure it to its "expected" settings. 
+
+If you have all multislot WINE installs, this isn't much of an issue - just invoke the wine you want against the prefix.
+```
+WINEPREFIX=~/myprefix /opt/wineversion/wine8/bin/wine explorer
+```
+
+However, you may also have a *very old* WINE version that isn't multislot and doesn't play well, so will need to set *all* (or most) of the variables before running WINE commands.
+```
+export WINEVERPATH="/opt/my-wine"
+export PATH="$WINEVERPATH/bin:$PATH"
+export WINESERVER="$WINEVERPATH/bin/wineserver"
+export WINELOADER="$WINEVERPATH/bin/wine"
+export WINEDLLPATH="$WINEVERPATH/lib/wine/fakedlls"
+export LD_LIBRARY_PATH="$WINEVERPATH/lib64:$WINEVERPATH/lib:$LD_LIBRARY_PATH"
+export WINEPREFIX=/home/user/myprefix
+$WINELOADER explorer
+```
 
 ## *What are the limitations on the architectures?*
 The best thing is to focus on is compatibility.
