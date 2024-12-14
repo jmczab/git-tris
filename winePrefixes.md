@@ -74,11 +74,14 @@ Old Windows software typically relies on the system language being some variant 
 
 You can set the LANG environment variable before launching WINE, which will cause WINE to rewrite some of the Windows system variables. 
 ```
+mkdir ~/winelanguages
 export WINEPREFIX=~/winelangages
+LANG=en_US.UTF-8 wine wineboot
 LANG=en_US.UTF-8 wine regedit
 ```
 
-**Note: Language settings will get reset every time you run a WINE command in this prefix without the same LANG set**
+**Note: Language settings will get reset every time you run a WINE command in this prefix without the same LANG set.**
+
 
 You can make changes in the registry - like the default date formats, again, using the same LANG setting so it persists, then use regedit to view them, then launch the exe.
 ```
