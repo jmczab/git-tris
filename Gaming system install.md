@@ -45,14 +45,23 @@ As an alternative to Steam Proton, grab the latest GE proton (https://github.com
 ```
 sudo apt install python3-pil python3-numpy python3-build python3-hatchling python3-installer python3-yaml python3-venv cabextract
 ```
-## Other pre-reqs
-Lutris also needs vulkan-tools and fluidsynth, but the source commands may depend on your distribution. For Ubuntu 24/Mint22 however
+## Optionals
+Lutris can also use vulkan-tools (provides the "vulkaninfo" command) and fluidsynth, but the source commands may depend on your distribution. For Ubuntu 24/Mint22 however
 ```
 sudo apt install vulkan-tools fluidsynth
 ```
 
+# Lutris versions
+I prefer the git version. Some people prefer the flatpak version.
+
+I dislike sandbox tech for gaming as it is possible to spend too much time working around weird issues, diagnosing crashes, providing access to non-standard drivers or other files. Sure you can run flatseal and edit, but I am not going to bother. 
+
+"OMGSecurityWTF!!!" I hear people cry. "Know what you are running and don't buy pirated stuff," I respond. Most "bad" actors need the network anyway, and you should be blocking that, yes?
+
+If you want to go with the flatpak, then use the instructions on lutris.net - it works perfectly well. Until it doesn't.
+
 ## Git Lutris and Git umu-launcher
-Now handled by the handy gittris script in this very repo!
+Now handled by the handy "gittris" script in this very repo!
 
 ### Automagic, assuming you trust my script
 ```
@@ -61,26 +70,27 @@ mkdir ~/source && cd ~/source && git clone https://github.com/jmczab/git-tris
 ```
 
 ### Manual, if you don't trust my script :)
+Create a directory for your git clone. Pull in 
 ```
-mkdir ~/source && cd ~/source && git clone https://github.com/lutris/lutris.git
+mkdir ~/mygitstuff && cd ~/mygitstuff && git clone https://github.com/lutris/lutris.git
 ```
 Link and run Lutris once, let it install stuff and update
 ```
-sudo ln -s ~/source/lutris/bin/lutris /usr/local/bin/lutris
+sudo ln -s ~/mygitstuff/lutris/bin/lutris /usr/local/bin/lutris
 lutris -d
 ```
 
 Install Git umu-launcher so Lutris can access and use Steam protons - preferred over the static version, as updating git keeps them in step
 ```
-cd ~/source && git clone https://github.com/Open-Wine-Components/umu-launcher.git
-cd ~/source/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/null && make install
+cd ~/mygitstuff && git clone https://github.com/Open-Wine-Components/umu-launcher.git
+cd ~/mygitstuff/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/null && make install
 ```
 
 # Ready player tux
 System is pretty much ready to install games, and game!
 
 
-## Optional stuff
+## Optional steps
 Fire snapd into the heart of the sun - because I hate the interface to snap and I'd rather sandbox my own stuff when required, and FlatPak is much more robust
 ```
 sudo apt autoremove --purge snapd
