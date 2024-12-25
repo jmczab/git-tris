@@ -1,12 +1,12 @@
-# Mint 22 - System install instructions for gaming
-
-A set of instructions and list of components to get Mint22 ready for gaming with Lutris and WINE.
+# Mint 22 - System install instructions for WINE and Lutris gaming
 
 I prefer Debian based distros - Debian, Mint. I appreciate it isn't always bleeding edge, but it doesn't really need to be.
 
 My main focus, though, is always stable driver support. A lot of work goes into distros, but to replace a Windows gaming system, I find Mint has Linux up and running very quickly. A different distro might work for you, but always make sure you've got the right graphics drivers and Vulkan support.
 
 I choose to shun snap and flatpak for their random issues and added complications they can bring. I'm a "professional" user, who buys legitimate products, and always has an eye on security so I can do this with confidence. Your experience with such tools may be flawless, or you may be paranoid about security. 
+
+# Away we go!
 
 ## Add 32bit support 
 This is for WINE and other apps that need it
@@ -15,11 +15,16 @@ sudo dpkg --add-architecture i386
 ```
 ## GPU Drivers
 ### NVIDIA
-Install latest [NVIDIA drivers from their website](https://www.nvidia.com/en-us/drivers/) - This should also pull in vulkan support
-Note: If you have a very new GPU, Nvidia's 560 driver is broken, so use 565 onwards
+Install latest [NVIDIA drivers from their website](https://www.nvidia.com/en-us/drivers/) - This should also pull in vulkan support. 
+
+Your distro might have already staged this. For Mint22, pick a version for your GPU. For very new GPUs use 565 onwards.
+```
+sudo apt install nvidia-driver-550 -y
+```
+
 
 ### AMD
-Stick with repo Mesa drivers (thankfully up to date now) or you can always go to [Kisak's PPA](https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa) which is reliable
+Stick with repo Mesa drivers (reasonably up to date now.) Alternatively, use [Kisak's PPA](https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa) which is reliable
 
 Mesa and vulkan install command for ubuntu24/mint22
 ```
@@ -28,45 +33,49 @@ sudo apt install libegl-mesa0 libegl-mesa0:i386 libegl1-mesa-dev libgl1-mesa-dri
 
 *Restarting the system at this point is a good idea!*
 
+# Lutris flatpak
+Not my choice, but I thought I'd include it as the easy option for some. Install flatpak, install Steam, install Lutris. Deal with random sandbox issues :P
 
-## WINE staging from WineHQ
+## flatpaks
+Note that some distros do not add flathub as a source. You'll have to do that manually. Mint, however, does. When you install Steam flatpak, you want the app that says "app/com.valvesoftware.Steam/x86_64/stable" 
+```
+sudo apt install flatpak -y
+flatpak install com.valvesoftware.Steam
+flatpak install net.lutris.Lutris
+```
+
+Run Steam and login.
+Run Lutris and wait for it to download its support files. It should list "Steam" as a source on the left, and because you logged in, your games library should appear.
+
+# Lutris Git
+So you're sticking with the Git version? Good for you. You need to install Git, WINE pre-reqs, a couple of tools to support the scripting system and Steam.
+
+## Pre-req1: WINE staging from WineHQ
 
 Install instructions for WINE for Ubuntu 24 (noble) and Mint 22 see [WineHQ.org](https://www.winehq.org) for others
 ```
 sudo mkdir -pm755 /etc/apt/keyrings
 sudo wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
 sudo wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources
-sudo apt install --install-recommends winehq-staging -y
+sudo apt update && sudo apt install --install-recommends winehq-staging -y
 ```
 
-## Gaming setup
-Install Steam, basic tools
+## Pre-req2: Steam and tools
+Install the Steam installer, basic tools, lutris Python and script pre-reqs
 ```
-sudo apt install steam-installer curl cmake git build-essential scdoc -y
+sudo apt install steam-installer curl cmake git build-essential scdoc python3-pil python3-numpy python3-build python3-hatchling python3-installer python3-yaml python3-venv cabextract unrar -y
 ```
 
-Run Steam once so it sets up and patches, and then login.
+Run Steam once so it sets up and patches, and then login. As an alternative to Steam Proton and occasionally better performance in certain games, also grab the latest [GE proton](https://github.com/GloriousEggroll/proton-ge-custom), untar to ~/.steam/root/compatibilitytools.d/ (needs to be created)
 
-As an alternative to Steam Proton, grab the latest GE proton (https://github.com/GloriousEggroll/proton-ge-custom), untar to ~/.steam/root/compatibilitytools.d/ (needs to be created)
-
-## Lutris Pre-Reqs
-```
-sudo apt install python3-pil python3-numpy python3-build python3-hatchling python3-installer python3-yaml python3-venv cabextract
-```
-## Optionals
+## Optional
 Lutris can also use vulkan-tools (provides the "vulkaninfo" command) and fluidsynth, but the source commands may depend on your distribution. For Ubuntu 24/Mint22 however
 ```
 sudo apt install vulkan-tools fluidsynth
 ```
 
-# Lutris versions
-I prefer the git version. Some people prefer the flatpak version.
-
-I dislike sandbox tech for gaming as it is possible to spend too much time working around weird issues, diagnosing crashes, providing access to non-standard drivers or other files. Sure you can run flatseal and edit, but I am not going to bother. 
-
-"OMGSecurityWTF!!!" I hear people cry. "Know what you are running and don't buy pirated stuff," I respond. Most "bad" actors need the network anyway, and you should be blocking that, yes?
-
-If you want to go with the flatpak, then use the instructions on lutris.net - it works perfectly well. Until it doesn't.
+## "Install" Lutris Git
+I prefer the git version. I've already explained why in the first couple of paragraphs.
 
 ## Git Lutris and Git umu-launcher
 Now handled by the handy "gittris" script in this very repo!
@@ -94,6 +103,28 @@ cd ~/mygitstuff && git clone https://github.com/Open-Wine-Components/umu-launche
 cd ~/mygitstuff/umu-launcher && ./configure.sh --user-install && make 2>&1 >>/dev/null && make install
 ```
 
+### Create a desktop launch item
+Simple really. Here's an inline script. Change the Lutris icon path as needed.
+```
+IFS="~~~"
+read -r -d '' lutrisDesktop << EOF 
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Exec=/home/userName/.local/bin/lutris
+Name=Lutris
+Comment=Lutris game platform
+Terminal=false
+Icon=/home/userName/source/lutris/share/icons/hicolor/scalable/apps/lutris.svg
+PrefersNonDefaultGPU=false
+EOF
+echo ${lutrisDesktop} | sed -e s/userName/`whoami`/g > ~/.local/share/applications/lutris.desktop
+```
+
+### Add "lutris:" links in browser
+Process will vary per browser, but as a guide, click a Lutris install link from the site, and change it in "applications" or "file types".
+
 # Ready player tux
 System is pretty much ready to install games, and game!
 
@@ -104,7 +135,7 @@ Fire snapd into the heart of the sun - because I hate the interface to snap and 
 sudo apt autoremove --purge snapd
 ```
 
-Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats. Yes, I still enjoy (Stepmania)[https://github.com/stepmania/stepmania])
+Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats. Yes, I still enjoy [Stepmania](https://github.com/stepmania/stepmania)
 ```
 sudo usermod -a -G games myuser
 sudo mkdir /opt/games
