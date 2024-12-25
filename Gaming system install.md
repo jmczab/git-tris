@@ -1,5 +1,13 @@
 # Mint 22 - System install instructions for gaming
 
+A set of instructions and list of components to get Mint22 ready for gaming with Lutris and WINE.
+
+I prefer Debian based distros - Debian, Mint. I appreciate it isn't always bleeding edge, but it doesn't really need to be.
+
+My main focus, though, is always stable driver support. A lot of work goes into distros, but to replace a Windows gaming system, I find Mint has Linux up and running very quickly. A different distro might work for you, but always make sure you've got the right graphics drivers and Vulkan support.
+
+I choose to shun snap and flatpak for their random issues and added complications they can bring. I'm a "professional" user, who buys legitimate products, and always has an eye on security so I can do this with confidence. Your experience with such tools may be flawless, or you may be paranoid about security. 
+
 ## Add 32bit support 
 This is for WINE and other apps that need it
 ```
