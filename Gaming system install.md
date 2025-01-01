@@ -17,11 +17,10 @@ sudo dpkg --add-architecture i386
 ### NVIDIA
 Install latest [NVIDIA drivers from their website](https://www.nvidia.com/en-us/drivers/) - This should also pull in vulkan support. 
 
-Your distro might have already staged this. For Mint22, pick a version for your GPU. For very new GPUs use 565 onwards.
+Your distro might have already staged this. For Mint22, pick a version for your GPU. For very new GPUs use 565 onwards. For my middle-of-the-road GPU:
 ```
 sudo apt install nvidia-driver-550 -y
 ```
-
 
 ### AMD
 Stick with repo Mesa drivers (reasonably up to date now.) Alternatively, use [Kisak's PPA](https://launchpad.net/~kisak/+archive/ubuntu/kisak-mesa) which is reliable
@@ -33,10 +32,10 @@ sudo apt install libegl-mesa0 libegl-mesa0:i386 libegl1-mesa-dev libgl1-mesa-dri
 
 *Restarting the system at this point is a good idea!*
 
-# Lutris flatpak
+# Option1: Lutris flatpak
 Not my choice, but I thought I'd include it as the easy option for some. Install flatpak, install Steam, install Lutris. Deal with random sandbox issues :P
 
-## flatpaks
+## flatpaks (not ikea)
 Note that some distros do not add flathub as a source. You'll have to do that manually. Mint, however, does. When you install Steam flatpak, you want the app that says "app/com.valvesoftware.Steam/x86_64/stable" 
 ```
 sudo apt install flatpak -y
@@ -47,7 +46,7 @@ flatpak install net.lutris.Lutris
 Run Steam and login.
 Run Lutris and wait for it to download its support files. It should list "Steam" as a source on the left, and because you logged in, your games library should appear.
 
-# Lutris Git
+# Option2: Lutris Git (preferred)
 So you're sticking with the Git version? Good for you. You need to install Git, WINE pre-reqs, a couple of tools to support the scripting system and Steam.
 
 ## Pre-req1: WINE staging from WineHQ
@@ -130,19 +129,21 @@ System is pretty much ready to install games, and game!
 
 
 ## Optional steps
-Fire snapd into the heart of the sun - because I hate the interface to snap and I'd rather sandbox my own stuff when required, and FlatPak is much more robust
+### For Ubuntu
+I would fire snapd into the heart of the sun - because I hate the interface to snap, I'd rather sandbox my own stuff when required, and FlatPak is much more robust
 ```
 sudo apt autoremove --purge snapd
 ```
-
-Create a separate location for games, and use the games group for my games (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group (for access to certain devices, like dance mats. Yes, I still enjoy [Stepmania](https://github.com/stepmania/stepmania)
+### Games in a tidy place
+I prefer to create a separate location for games, and use the builtin games group for games access (setgid: not for everyone I realise, but it helps permissions) also add "myuser" to the input group for access to certain devices, like dance mats. Yes, I still enjoy [Stepmania](https://github.com/stepmania/stepmania)
 ```
 sudo usermod -a -G games myuser
 sudo mkdir /opt/games
 sudo chown myuser:games /opt/games
-sudo chmod g+s /opt/games
+sudo chmod g+ws /opt/games
 sudo usermod -a -G input myuser 
 ```
+You might need to restart before this works
 
 Create a separate SteamLibrary location for steam to store its games, and one for Lutris
 ```
@@ -151,3 +152,5 @@ mkdir /opt/games/lutris
 ```
 
 Add /opt/games/SteamLibrary to Steam's default library location, and update Lutris preferences to use /opt/games/lutris
+
+Obvs if you are skipping and didn't follow that you need to subsitute "myuser" for your actual user name, then slow down a bit :)
