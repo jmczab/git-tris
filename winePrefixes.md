@@ -6,7 +6,7 @@ WINE is a set of compatibility tools that allows Windows commands and operating 
 ## *Where to get WINE and what to install?*
 The main Linux distributions provide their own WINE in their repositories, but I personally avoid using those.
 
-My choice for pre-packaged WINE for me is also the source - (winehq.org)[https://www.winehq.org], but as with many Linux projects, you can download and compile the source yourself.
+My choice for pre-packaged WINE for me is also the source - [winehq.org](https://www.winehq.org), but as with many Linux projects, you can download and compile the source yourself.
 
 I enable 32-bit support, and use wine-staging which is in development, but not bleeding edge. Using the recommended *sudo dpkg --add-architecture i386 && sudo apt install --install-recommends winehq-staging -y* is usually enough to support everything I need.
 
