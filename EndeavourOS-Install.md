@@ -37,9 +37,9 @@ Lutris normally fixes up the clickable Firefox link integration for lutris: link
 
 ## Game installation failures!
 1. vulkan failure using wine (causes error 256)
-I tried the following: -
-- amdvlk lib32-amdvlk - nope
-- vkd3d lib32-vkd3d - yes!
+I tried installing the following using pacman: -
+- amdvlk lib32-amdvlk - nope :(
+- vkd3d lib32-vkd3d - yes! :D
 
 2. Error 256 after game install
 This was due to winetricks requiring cabextract. Normally I install it, but forgot. It's now in the pre-reqs above.
