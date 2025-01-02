@@ -18,3 +18,6 @@ Help file for those new to WINE and WINE prefixes
 
 ### Gaming system install.md
 My own experience getting a Mint22 system ready for games in <30 minutes
+
+### EndeavourOS-Install.md
+My own experience getting an EndeavourOS (Sept 2024) ready for games
