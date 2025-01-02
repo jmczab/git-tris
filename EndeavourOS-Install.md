@@ -36,15 +36,19 @@ Just cloned it from git, as per my usual M.O.
 Lutris normally fixes up the clickable Firefox link integration for lutris: links, but it was broken. Had to manually put it in my profile's handlers.json
 
 ## Game installation failures!
-1. vulkan failure using wine (causes error 256)
+*1. vulkan failure using wine (causes error 256)*
+
 I tried installing the following using pacman: -
 - amdvlk lib32-amdvlk - nope :(
 - vkd3d lib32-vkd3d - yes! :D
 
-2. Error 256 after game install
+2. *Error 256 after game install*
+
 This was due to winetricks requiring cabextract. Normally I install it, but forgot. It's now in the pre-reqs above.
 
-3. Game failed to launch with a dxvk error. Had to work out the packages required...oh look, we're missing 32 bit.
+*3. Game failed to launch with a dxvk error.*
+
+Had to work out the packages required...oh look, we're missing 32 bit.
 ```
 pacman -S lib32-nvidia-utils
 ```
