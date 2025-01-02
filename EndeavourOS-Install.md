@@ -5,10 +5,10 @@ Getting Git Lutris and games running quickly on EndeavourOS didn't prove to be t
 I picked Cinnamon. I like cinnamon. It's pretty tidy, works with Wayland, and works with Lutris.
 
 ## Driver installation
-After much browsing of OS notes and self determination - Install the nvidia install tool, then run it
+After much browsing of OS notes and self determination - Install the nvidia install tool, then run it to install nvidia drivers over nouveau
 ```
 pacman -S nvidia-inst
-nvidia-inst (to install nvidia drivers over nouveau)
+nvidia-inst
 ```
 
 ## Why must you always WINE, Louis?
