@@ -12,7 +12,7 @@ nvidia-inst
 ```
 
 ## Why must you always WINE, Louis?
-Staging is always a better bet IMO. A bit behind winehq builds, but take we can get.
+Staging is always a better bet IMO. The repo is a bit behind winehq builds, but take we can get, because I don't want to be building it right now.
 ```
 pacman -S wine-staging
 ```
