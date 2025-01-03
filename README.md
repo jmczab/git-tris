@@ -16,7 +16,7 @@ Shell script that generates a generic yaml file to install a WINE game you have 
 ### winePrefixes.md
 Help file for those new to WINE and WINE prefixes
 
-### Gaming system install.md
+### Mint 22 gaming install.md
 My own experience getting a Mint22 system ready for games in <30 minutes
 
 ### EndeavourOS-Install.md
