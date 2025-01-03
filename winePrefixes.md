@@ -1,7 +1,31 @@
-# WINE background
+TOC
+1. [What is WINE?](#whatiswine)
+    1. [Where to get WINE and what to install?](#wheretogetwine)
+    2. [What does Proton have to do with WINE?](#protonvswine)
+    3. [Why do you capitalise WINE?](#wthdude)
+2. [What is a WINE prefix and how is it used?](#wineprefixes)
+    1. [How do I create a WINE prefix?](#creatingprefixes)
+    2. [How do I interact with an existing WINE prefix?](#usingprefixes)
+    3. [What are the most common WINE variables, and what is multislot-wine?](#variablesandmultislot)
+    4. [How do I use a specific version of WINE with a WINE prefix, and what about non-multislot?](#specificwineversions)
+    5. [What are the limitations on architecture?](#winearch)
+    6. [How do I install common Windows apps into a WINE prefix?](#commonapps)
+    7. [What is a DLL override and why do I need it?](#dlloverides)
+    8. [I am getting a prompt for something called mono/gecko?](#monoandgecko)
+    9. [My Windows application does not support my Linux native language](#winelanguage)
+3. [Examples](#examples)
+    1. [create new wineprefix, then run and installer you downloaded](#exp1)
+    2. [create new wineprefix then install .NET 4.8 using winetricks and windows core fonts - quietly and unattended](#exp2)
+    3. [create new 32 bit wineprefix](#exp3)
+    4. [I'm running 4k screen and the Windows application fonts are TINY](#exp4)
 
-## *What is WINE?*
+
+<div id='whatiswine' />
+
+# *What is WINE?*
 WINE is a set of compatibility tools that allows Windows commands and operating system calls to work on Linux, mainly by mapping them to their equivalent in Linux.
+
+<div id='wheretogetwine' />
 
 ## *Where to get WINE and what to install?*
 The main Linux distributions provide their own WINE in their repositories, but I personally avoid using those.
@@ -10,21 +34,27 @@ My choice for pre-packaged WINE for me is also the source - [winehq.org](https:/
 
 I enable 32-bit support, and use wine-staging which is in development, but not bleeding edge. Using the recommended *sudo dpkg --add-architecture i386 && sudo apt install --install-recommends winehq-staging -y* is usually enough to support everything I need.
 
+<div id='protonvswine' />
+
 ## *What does Proton have to do with WINE?*
 Proton is a version of WINE packaged and built to provide more focussed support for Windows games. A bunch of developers got together (mainly Valve, but also many notable others like "GloriousEggroll") produce and maintain it. Things like the Steam deck rely on it to run Windows titles.
+
+<div id='wthdude' />
 
 ## *Why do you capitalise 'WINE'?*
 Well, it is an acronym for "wine is not emulation" or "wine is not an emulator" (which would be WINAE and just ...doesn't work)
 
 It is "not an emulator" because it maps functions, rather than providing code (emulation) to do it, but there is always a line for emulation that gets broken somewhere :)
 
-# WINE prefixes and use
-
-## *What is a WINE prefix?*
+<div id='wineprefixes' />
+  
+# *What is a WINE prefix and how is it used?*
 In short? A directory with supporting files in it, so it looks like a Windows OS.
 - **dosdevices** - symlinks mimicing drives available to the prefix
 - **drive_c** - Obviously containing the C: drive contents
 - **various reg files** - mimicing the registry and storing Windows settings
+
+<div id='creatingprefixes' />
 
 ## *How do I create a WINE prefix?*
 The most basic way is to set the variable WINEPREFIX to a new directory, then execute any wine command.
@@ -37,14 +67,18 @@ wine wineboot
 **Note:** I use "export WINEPREFIX" so every wine command I issue in that terminal window after that uses the same prefix.
 You can also prefix the prefix to every wine command... *WINEPREFIX=~/mynewprefix wine wineboot* ...which is better for automated builds and scripts.
 
+<div id='usingprefixes' />
+
 ## *How do I interact with an existing WINE prefix?*
-Again, set WINEPREIX so any WINE-related commands after that will be executed in that prefix.
-So if you did
+Again, set the WINEPREIX variable to its directory, so any WINE-related commands after that will be executed in that prefix.
+So if you did...
 ```
 export WINEPREFIX=/home/user/myprefix
 wine winecfg
 ```
 ...it would run the wine configuration panel in that prefix using the system WINE.
+
+<div id='variablesandmultislot' />
 
 ## *What are the most common WINE variables, and what is multislot-wine?*
 These days, WINE is typically built as "multislot" - meaning the wine executable knows where to find its files, based on its local path. So if you invoke a specific wine command, it will pick up the relevant libaries etc.
@@ -52,6 +86,8 @@ These days, WINE is typically built as "multislot" - meaning the wine executable
 WINE uses few variables - see 'man wine' for a full list and the specific version info below, but most commonly thanks to multislot WINE, you'll only need two: -
 - WINEPREFIX - where to store windows files - set this to the directory of the prefix (i.e. the directory that contains dosdevices, drive_c etc.)
 - WINEARCH - architecture - set to win32 or win64 as you need
+
+<div id='specificwineversions' />
 
 ## *How do I use a specific version of WINE with a WINE prefix, and what about non-multislot?*
 If you have multiple versions of WINE, and every time you interact with a prefix, the version of WINE you run will reconfigure it to its "expected" settings. 
@@ -73,6 +109,7 @@ export WINEARCH=win32
 export WINEPREFIX=/home/user/mycustomprefix
 $WINELOADER $WINEPREFIX/company/application/software.exe
 ```
+<div id='winearch' />
 
 ## *What are the limitations on architecture?*
 The best thing is to focus on is compatibility, but try and select the highest possible.
@@ -80,6 +117,7 @@ A 64 bit prefix will only run 64 and 32 bit code. A 32 bit prefix will run 32 bi
 
 For example, you might know of some 32 bit software, and decide to put it in a 64 bit prefix. However, the software comes with a launcher or service that is 16 bit, so a 32 bit prefix is the only option. Another example is  supporting software might only come as a 16 bit installer.
 
+<div id='commonapps' />
 
 ## *How do I install common Windows apps into a WINE prefix?*
 To be honest, the best and quickest way is to use [winetricks](https://github.com/Winetricks/winetricks)
@@ -87,22 +125,28 @@ To be honest, the best and quickest way is to use [winetricks](https://github.co
 - Winetricks is a shell script, but can run in the user context.
 - Winetricks caches downloads for reuse (~/.cache/winetricks) so disk use can grow a bit without you realising!
 
+<div id='dlloverides' />
+
 ## *What is a DLL override and why do I need it?*
-WINE provides replacement functions for a LOT of Windows DLLs, but some software needs the original file. The use of these is determined by the DLL overrides.
-If you run the configuration tool (wine winecfg) you can see the overrides under the "Libraries" tab. 
+WINE provides replacement functions for a LOT of Windows DLLs, but some software needs functions only present in the original file. The use of these is determined by the DLL overrides. If you run the configuration tool (wine winecfg) you can see the overrides under the "Libraries" tab. 
 
-Each entry corresponds to a DLL, with various options of native/builtin. This choice just means "use the DLL on the disk"/"use the wine DLL" when the DLL is used.
-These can be set on the command line, or by winetricks
+Each entry corresponds to a DLL, with various options of native/builtin. This choice just means "use the disk DLL"/"use the wine DLL" when the DLL function is called.
+These can be set on the command line, by the configuration tool, or by winetricks.
 
-## *I created a prefix, but I am getting a prompt for something called mono/gecko?*
+<div id='monoandgecko' />
+
+## *I am getting a prompt for something called mono/gecko?*
 ### Mono
-When you installed WINE, it will also have pulled a package called "mono-runtime" or similar.
-Mono is a replacement for .NET in WINE prefixes and installing it in a new prefix does not cause any issues. The prompt usually a new version and is updating its runtimes.
+If you installed WINE with "recommends" it should have also have pulled a package called "mono-runtime" or similar.
 
-However, when a game dependant on .NET runs into issues, you can replace mono with a full fat .NET install using winetricks. This will automatically remove mono, if installed.
+Mono is a lightweight replacement for .NET in WINE prefixes. Installing it in a new prefix does not cause any issues. The prompt is usually a new version and is updating its runtimes, or detecting a requirement.
+
+However, some games dependant on .NET run into issues, so you can replace mono with a full fat .NET install using winetricks. This will automatically remove mono, if installed.
 
 ### Gecko
 Gecko is another compatibility layer - Because Windows integrates internet exporer with its OS, WINE uses its own layer. Gecko is an extended compatibility layer, but is rarely needed for games.
+
+<div id='winelanguage' />
 
 ## *My Windows application does not support my Linux native language*
 Old Windows software typically relies on the system language being some variant of US English. However, if you don't use English and have a non-default keyboard, this can be a problem. Generally, the variables are stored in the registry under HKEY_CURRENT_USER\Control Panel\International
@@ -124,8 +168,11 @@ LANG=en_US.UTF-8 wine regedit
 LANG=en_US.UTF-8 wine $WINEPREFIX/drive_c/MySoftware/application.exe
 ```
 
+<div id='examples' />
 
 # Examples
+
+<div id='exp1' />
 
 ### Example 1 - create new wineprefix, then run and installer you downloaded
 ```
@@ -135,6 +182,8 @@ wine wineboot
 wine ~/Downloads/software_installer.exe
 ```
 
+<div id='exp2' />
+
 ### Example 2 - create new wineprefix then install .NET 4.8 using winetricks and windows core fonts - quietly and unattended
 ```
 mkdir -p /opt/wine/appneedingdotnet48
@@ -142,6 +191,8 @@ export WINEPREFIX=/opt/wine/appneedingdotnet48
 winetricks -q dotnet48 corefonts
 ```
 If you have the mono-runtime installed, this will automatically execute remove_mono so there is no conflict.
+
+<div id='exp3' />
 
 ### Example 3 - create new 32 bit wineprefix
 ```
@@ -152,9 +203,11 @@ wine wineboot
 ```
 When interacting with this prefix in future, WINE will know it is 32 bit and behave accordingly.
 
+<div id='exp4' />
+
 ### Example 4 - I'm running 4k screen and the Windows application fonts are TINY
 ```
 export WINEPREFIX=/opt/wine/myfontsaretiny
 wine winecfg
 ```
-Yep, Windows dynamic DPI isn't here :) Go into the "graphics" tab and move the DPI slider - I find 144 or 168 acceptable.
+No, no Windows dynamic DPI here :) Go into the "graphics" tab and move the DPI slider - I find 144 or 168 acceptable.
