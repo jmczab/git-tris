@@ -1,5 +1,5 @@
 # Perilous endeavours
-Getting Git Lutris and games running quickly on EndeavourOS didn't prove to be too challenging for someone with a Fedora/Debian Linux background. That said, there are quirks.
+Getting Git Lutris and games running quickly on EndeavourOS didn't prove to be too challenging for someone with a Fedora/Debian Linux (and HP-UX, AIX, Solaris, but that knowledge is very old) background. That said, there are quirks.
 
 ## Choice of deskop system
 I picked Cinnamon. I like cinnamon. It's pretty tidy, works with Wayland, and works with Lutris.
