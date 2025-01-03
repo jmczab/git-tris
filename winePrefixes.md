@@ -34,6 +34,8 @@ My choice for pre-packaged WINE for me is also the source - [winehq.org](https:/
 
 I enable 32-bit support, and use wine-staging which is in development, but not bleeding edge. Using the recommended *sudo dpkg --add-architecture i386 && sudo apt install --install-recommends winehq-staging -y* is usually enough to support everything I need.
 
+However, you may not have a choice. If you have doubt, search your software repo for wine. If it still isn't clear, ask on your distros forums.
+
 <div id='protonvswine' />
 
 ## *What does Proton have to do with WINE?*
